@@ -3,16 +3,10 @@ import React from 'react'
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
-import {getDocumentInCollectionById, updateDocument} from "../../providers/documentsProvider"
-import {getCollectionSchema} from "../../providers/collectionsProvider"
-import {SCHEMA_TYPES} from "../../../../shared/registry/SCHEMA_TYPES";
-import {matchFieldConstructor} from "../../fields-factory/helpers/match-constructor";
-import {ISchema} from "../../../../db/interfaces/mongoose";
+import {updateDocument} from "../../providers/documentsProvider"
+import {getFieldsToEdit} from "../../helpers/get-fields-to-edit";
 
 require('./DocumentEdit.sass')
-
-// @ts-ignore
-console.log('SCHEMA_TYPES: ', SCHEMA_TYPES)
 
 interface Props {
     collectionName: string
@@ -41,7 +35,14 @@ class DocumentEdit extends React.Component<Props, LocalState> {
     }
 
     async componentDidMount() {
-        await this.getFields()
+        console.log('componentDidMount')
+        
+        const {fields, modelPrettyName} = await getFieldsToEdit(this.props.collectionName, this.props.documentId)
+
+        this.setState({
+            fields,
+            modelPrettyName
+        })
     }
 
     setFieldValue(fieldName: string, value: any) {
@@ -106,27 +107,6 @@ class DocumentEdit extends React.Component<Props, LocalState> {
                 </Grid>
             </form>
         )
-    }
-
-    async getFields() {
-        const document = await getDocumentInCollectionById(this.props.collectionName, this.props.documentId)
-        const schema = await getCollectionSchema(this.props.collectionName)
-
-        console.log('document: ', document)
-        console.log('schema: ', schema)
-
-        const fields: Array<JSX.Element> = []
-
-        Object.keys(schema.obj).map((fieldName: string) => {
-            fields.push(matchFieldConstructor(schema as ISchema, fieldName, this, document))
-        })
-
-        this.setState({
-            fields,
-            // TODO solve type problem
-            // @ts-ignore
-            modelPrettyName: schema.options.modelPrettyName
-        })
     }
 }
 
