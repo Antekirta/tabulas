@@ -8,14 +8,14 @@ import {SelectField} from "./types/select";
 import {CUSTOM_SCHEMA_TYPES} from "../../../../../shared/registry/SCHEMA_TYPES";
 
 class ConstructArrayField extends ConstructField {
-    constructor(fieldName: string, label: string, schema: mongoose.Schema, component: DocumentEdit, document: IDocumentFromResponse) {
+    constructor(fieldName: string, label: string, schema: mongoose.Schema, component: DocumentEdit, document?: IDocumentFromResponse) {
         super(fieldName, label, schema, component, document)
     }
 
     public returnField() {
         const props = {
             key: this.fieldName,
-            initialValue: this.document[this.fieldName],
+            initialValue: this.document && this.document[this.fieldName],
             fieldName: this.fieldName,
             label: this.label,
             parentComponent: this.component

@@ -35,8 +35,6 @@ class DocumentEdit extends React.Component<Props, LocalState> {
     }
 
     async componentDidMount() {
-        console.log('componentDidMount')
-        
         const {fields, modelPrettyName} = await getFieldsToEdit(this.props.collectionName, this.props.documentId)
 
         this.setState({

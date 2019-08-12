@@ -11,14 +11,14 @@ class ConstructBooleanField extends ConstructField {
                 label: string,
                 schema: mongoose.Schema,
                 component: DocumentEdit,
-                document: IDocumentFromResponse) {
+                document?: IDocumentFromResponse) {
         super(fieldName, label, schema, component, document)
     }
 
     public returnField() {
         const props = {
             key: this.fieldName,
-            initialValue: this.document[this.fieldName],
+            initialValue: this.document && this.document[this.fieldName],
             label: this.label,
             fieldName: this.fieldName,
             parentComponent: this.component

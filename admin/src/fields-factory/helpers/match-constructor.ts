@@ -9,7 +9,7 @@ import {IDocumentFromResponse} from "../../../../db/interfaces/mongoose";
 export const matchFieldConstructor = (schema: ISchema,
                                       fieldName: string,
                                       component: DocumentEdit,
-                                      document: IDocumentFromResponse): JSX.Element => {
+                                      document?: IDocumentFromResponse): JSX.Element => {
     const {instance, options} = schema.paths[fieldName]
 
     const {label} = schema.obj[fieldName]
