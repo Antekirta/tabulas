@@ -25,8 +25,12 @@ interface ISchemaOptions extends mongoose.SchemaOptions {
 interface ISchema extends mongoose.Schema {
     paths: {
         [key: string]: any
-    }
+    },
     options: ISchemaOptions
 }
 
-export {ICollection, ISchema, IDocumentFromResponse, ISchemaOptions}
+interface ISchemaWithTree extends ISchema {
+    tree: object
+}
+
+export {ICollection, ISchema, ISchemaWithTree, IDocumentFromResponse, ISchemaOptions}

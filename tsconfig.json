@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "typeRoots": [
+    "lib": [
+      "es2017"
+    ],
+    "typeRoots": [  
       "node_modules/@types",
       "node_modules/body-parser"
     ],

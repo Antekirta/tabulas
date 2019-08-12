@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
+import {DocumentCreate} from "../DocumentCreate/DocumentCreate"
 
 interface ICollectionPageProps {
     collectionName: string
@@ -38,6 +39,8 @@ export class CollectionPage extends React.Component <ICollectionPageProps, IColl
         return (
             <main className='collection-page' style={{margin: '100px 16px'}}>
                 <Typography variant={'h2'}>{this.props.collectionName}</Typography>
+
+                <DocumentCreate collectionName={this.props.collectionName} />
 
                 <Table>
                     <TableHead>
